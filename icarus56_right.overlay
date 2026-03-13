@@ -1,0 +1,71 @@
+/*
+ * Icarus56 — Right Half Shield Overlay
+ * Seeed XIAO nRF52840
+ *
+ * 5 rows x 6 cols (mirrored from left)
+ * Encoder switch: Row4, Col1
+ * Encoder A: NFC1 (P0.09), Encoder B: NFC2 (P0.10)
+ */
+
+#include <dt-bindings/zmk/matrix_transform.h>
+
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,matrix_transform = &default_transform;
+    };
+
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <6>;
+        rows = <5>;
+
+        map = <
+            RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5)
+            RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5)
+            RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)
+            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5)
+            RC(4,0) RC(4,1)
+        >;
+    };
+
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        label = "KSCAN";
+        diode-direction = "col2row";
+
+        // Columns: Col0–Col5
+        col-gpios
+            = <&xiao_d 5 GPIO_ACTIVE_HIGH>   // Col0 — P0.05 / A5 / D5
+            , <&xiao_d 6 GPIO_ACTIVE_HIGH>   // Col1 — P1.11 / D6 / TX
+            , <&xiao_d 10 GPIO_ACTIVE_HIGH>  // Col2 — P1.15 / D10 / MOSI
+            , <&xiao_d 9 GPIO_ACTIVE_HIGH>   // Col3 — P1.14 / D9 / MISO
+            , <&xiao_d 8 GPIO_ACTIVE_HIGH>   // Col4 — P1.13 / D8 / SCK
+            , <&xiao_d 7 GPIO_ACTIVE_HIGH>   // Col5 — P1.12 / D7 / RX
+            ;
+
+        // Rows: Row0–Row4
+        row-gpios
+            = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row0 — P0.02 / A0 / D0
+            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row1 — P0.03 / A1 / D1
+            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row2 — P0.28 / A2 / D2
+            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row3 — P0.29 / A3 / D3
+            , <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row4 — P0.04 / A4 / D4
+            ;
+    };
+
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        label = "RIGHT_ENCODER";
+        a-gpios = <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;   // NFC1 — P0.09
+        b-gpios = <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // NFC2 — P0.10
+        steps = <80>;
+        status = "okay";
+    };
+
+    sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&right_encoder>;
+        triggers-per-rotation = <20>;
+    };
+};

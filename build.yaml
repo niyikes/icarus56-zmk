@@ -1,0 +1,6 @@
+---
+include:
+  - board: seeeduino_xiao_ble
+    shield: icarus56_left
+  - board: seeeduino_xiao_ble
+    shield: icarus56_right
