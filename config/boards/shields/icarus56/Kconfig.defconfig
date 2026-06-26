@@ -1,0 +1,16 @@
+if SHIELD_ICARUS56_LEFT
+
+config ZMK_KEYBOARD_NAME
+    default "Icarus56"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+endif
+
+if SHIELD_ICARUS56_RIGHT
+
+config ZMK_KEYBOARD_NAME
+    default "Icarus56"
+
+endif

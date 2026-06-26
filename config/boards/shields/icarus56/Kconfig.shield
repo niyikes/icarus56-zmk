@@ -1,0 +1,5 @@
+config SHIELD_ICARUS56_LEFT
+    def_bool $(shields_list_contains,icarus56_left)
+
+config SHIELD_ICARUS56_RIGHT
+    def_bool $(shields_list_contains,icarus56_right)

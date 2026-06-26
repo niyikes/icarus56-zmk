@@ -1,0 +1,11 @@
+file_format: "1"
+id: icarus56
+name: Icarus56
+type: shield
+url: https://github.com/niyikes/icarus56-zmk
+requires: [adapter]
+features:
+  - encoder
+siblings:
+  - icarus56_left
+  - icarus56_right
