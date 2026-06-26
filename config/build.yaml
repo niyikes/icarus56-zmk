@@ -1,6 +1,10 @@
----
-include:
-  - board: seeeduino_xiao_ble
-    shield: icarus56_left
-  - board: seeeduino_xiao_ble
-    shield: icarus56_right
+name: Build ZMK firmware
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
