@@ -1,6 +1,6 @@
 ---
 include:
-  - board: xiao_ble
+  - board: xiao_ble/nrf52840/zmk
     shield: icarus56_left
-  - board: xiao_ble
+  - board: xiao_ble/nrf52840/zmk
     shield: icarus56_right
